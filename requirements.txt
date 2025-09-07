@@ -6,15 +6,8 @@ langchain-community
 langchain-openai
 openai
 qdrant-client
-ipykernel
 pandas
 numpy
-python-dotenv
-torch
-torchvision
-open_clip_torch
 langchain-core
-huggingface-hub
-faiss-cpu
 python-docx
 pydantic
