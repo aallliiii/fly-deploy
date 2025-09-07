@@ -51,7 +51,7 @@ class LLMService:
           * "next_week" - for events happening next week
           * "next_month" - for events happening next month
         - Time-related words like 'next week', 'today', 'this weekend' should be mapped to appropriate time_filter, NOT added as keyword filters
-        - If the query is for a weekend, set is_weekend to True otherwise set to False
+        - If the query is for a weekend (Saturday or Sunday or weekend key word), set is_weekend to True otherwise set to False
         - Give alot of keywords using synonyms and related words
 
 
