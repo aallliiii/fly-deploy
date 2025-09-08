@@ -25,8 +25,9 @@ class LLMService:
         2. Determine what type of items they're looking for (EVENT, PRODUCT, or both)
         3. Determine the audience (male/female/unisex) if mentioned otherwise set to None
         4. Extract any relevant keywords from the query to filter the results
-        5. Extract time filters for events (future, past, today, this_week, this_month, nex) if mentioned otherwise set to None
+        5. Extract time filters for events (future, past, today, this_week, this_month, next_week, next_month) if mentioned otherwise set to None
         6. Extract is_weekend for events if mentioned otherwise set to False
+        
         
         User Query: {query}
         
