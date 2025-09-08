@@ -159,7 +159,7 @@ class SearchService:
                
                 points = self.formatter.extract_points(search_results)
                 
-                threshold = 2 if enhancement.search_type == "both" else 5
+                threshold = 3 if enhancement.search_type == "both" else 5
                 if len(points) > threshold:
                     break
 

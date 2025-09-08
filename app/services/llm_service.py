@@ -103,6 +103,7 @@ class LLMService:
         3. Select the TOP {top_k} most relevant results
         4. Assign relevance scores from 1-10 (10 being most relevant)
         5. Provide brief explanations for why each result is relevant
+        6. Give a very short and to the point relevance reason
         
         Focus on:
         - Direct relevance to user's search intent
