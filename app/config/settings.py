@@ -15,7 +15,7 @@ class Settings:
 
         self.SCORING_THRESHOLD: float = 0.0
         self.OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY")
-        self.LLM_MODEL_ENHANCER: str = "gpt-4.1-mini"
+        self.LLM_MODEL_ENHANCER: str = "gpt-4.1"
         self.LLM_MODEL_RERANKER: str = "gpt-4.1-nano"
         self.LLM_TEMPERATURE: float = 0.1
 

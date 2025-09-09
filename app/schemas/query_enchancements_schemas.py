@@ -2,7 +2,8 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Literal
 
 class QueryEnhancement(BaseModel):
-    enhanced_query: str = Field(description="Improved search query optimized for semantic search")
+    event_enhanced_query: str = Field(description="Improved search query optimized for semantic search")
+    product_enhanced_query: str = Field(description="Improved search query optimized for semantic search")
     search_type: Literal["event", "product", "both"] = Field(description="Type of item to search for")
     audience: Optional[Literal["male", "female", "unisex"]] = Field(description="Audience for the item")
     time_filter: Optional[Literal["past", "future", "today", "this_week", "this_month", "next_week", "next_month"]] = Field(

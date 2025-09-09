@@ -21,12 +21,13 @@ class LLMService:
         
         enhancement_prompt = ChatPromptTemplate.from_template("""
         You are a search query enhancement expert. Given a user's search query, your task is to:
-        1. Enhance the query for better semantic search results as well as you can
-        2. Determine what type of items they're looking for (EVENT, PRODUCT, or both)
-        3. Determine the audience (male/female/unisex) if mentioned otherwise set to None
-        4. Extract any relevant keywords from the query to filter the results
-        5. Extract time filters for events (future, past, today, this_week, this_month, next_week, next_month) if mentioned otherwise set to None
-        6. Extract is_weekend for events if mentioned otherwise set to False
+        1. Determine what type of items they're looking for (EVENT, PRODUCT, or both)
+        2. Enhance the query for better semantic search results as well as you can (give separate queries for events and products)
+        3. If search type is not both, ignore the other search type enhanced query
+        4. Determine the audience (male/female/unisex) if mentioned otherwise set to None
+        5. Extract any relevant keywords from the query to filter the results
+        6. Extract time filters for events (future, past, today, this_week, this_month, next_week, next_month) if mentioned otherwise set to None
+        7. Extract is_weekend for events if mentioned otherwise set to False
         
         
         User Query: {query}

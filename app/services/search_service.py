@@ -159,7 +159,7 @@ class SearchService:
                
                 points = self.formatter.extract_points(search_results)
                 
-                threshold = 3 if enhancement.search_type == "both" else 5
+                threshold = 5
                 if len(points) > threshold:
                     break
 
@@ -172,7 +172,13 @@ class SearchService:
 
     async def enhanced_semantic_search(self, enhancement: QueryEnhancement, limit: int = 15) -> List[Dict]:
         try:
-            query_embedding = await embedding_service.get_text_embedding(enhancement.enhanced_query)
+            if enhancement.search_type == 'event':
+                event_query_embedding = await embedding_service.get_text_embedding(enhancement.event_enhanced_query)
+            elif enhancement.search_type == 'product':
+                product_query_embedding = await embedding_service.get_text_embedding(enhancement.product_enhanced_query)
+            else:
+                event_query_embedding = await embedding_service.get_text_embedding(enhancement.event_enhanced_query)
+                product_query_embedding = await embedding_service.get_text_embedding(enhancement.product_enhanced_query)
         except Exception as e:
             return []
 
@@ -183,16 +189,20 @@ class SearchService:
 
         if len(search_types) > 1:
             all_results = []
-            type_limit = limit // len(search_types)
+            type_limit = limit
             
             for search_type in search_types:
+                if search_type == 'event':
+                    query_embedding = event_query_embedding
+                elif search_type == 'product':
+                    query_embedding = product_query_embedding
                 results = await self._search_with_type(enhancement, search_type, type_limit, query_embedding)
                 all_results.extend(results)
             
             all_results.sort(key=lambda x: x["score"], reverse=True)
             return all_results
         
-        return await self._search_with_type(enhancement, search_types[0], limit, query_embedding)
+        return await self._search_with_type(enhancement, search_types[0], limit, event_query_embedding if search_types[0] == 'event' else product_query_embedding)
 
     async def intelligent_search(self, user_query: str, return_top_k: int = 7) -> SearchResponse:
         """Perform an intelligent search with query enhancement and reranking."""
@@ -208,7 +218,8 @@ class SearchService:
                     total_retrieved=0,
                     final_count=0
                 )
-
+            if enhancement.search_type == 'both':
+                return_top_k *= 2
             reranked_results = await llm_service.rerank_results(user_query, search_results, top_k=return_top_k)
 
             final_results = []
